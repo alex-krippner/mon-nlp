@@ -2,7 +2,7 @@
 """Client and server classes corresponding to protobuf-defined services."""
 import grpc
 
-import monNlpService_pb2 as monNlpService__pb2
+from adapters.genproto import monNlpService_pb2 as adapters_dot_genproto_dot_monNlpService__pb2
 
 
 class MonNlpServiceStub(object):
@@ -16,8 +16,8 @@ class MonNlpServiceStub(object):
         """
         self.tokenize = channel.unary_unary(
                 '/monNlp.MonNlpService/tokenize',
-                request_serializer=monNlpService__pb2.TokenizeRequest.SerializeToString,
-                response_deserializer=monNlpService__pb2.TokenizeResponse.FromString,
+                request_serializer=adapters_dot_genproto_dot_monNlpService__pb2.TokenizeRequest.SerializeToString,
+                response_deserializer=adapters_dot_genproto_dot_monNlpService__pb2.TokenizeResponse.FromString,
                 )
 
 
@@ -35,8 +35,8 @@ def add_MonNlpServiceServicer_to_server(servicer, server):
     rpc_method_handlers = {
             'tokenize': grpc.unary_unary_rpc_method_handler(
                     servicer.tokenize,
-                    request_deserializer=monNlpService__pb2.TokenizeRequest.FromString,
-                    response_serializer=monNlpService__pb2.TokenizeResponse.SerializeToString,
+                    request_deserializer=adapters_dot_genproto_dot_monNlpService__pb2.TokenizeRequest.FromString,
+                    response_serializer=adapters_dot_genproto_dot_monNlpService__pb2.TokenizeResponse.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -60,7 +60,7 @@ class MonNlpService(object):
             timeout=None,
             metadata=None):
         return grpc.experimental.unary_unary(request, target, '/monNlp.MonNlpService/tokenize',
-            monNlpService__pb2.TokenizeRequest.SerializeToString,
-            monNlpService__pb2.TokenizeResponse.FromString,
+            adapters_dot_genproto_dot_monNlpService__pb2.TokenizeRequest.SerializeToString,
+            adapters_dot_genproto_dot_monNlpService__pb2.TokenizeResponse.FromString,
             options, channel_credentials,
             insecure, call_credentials, compression, wait_for_ready, timeout, metadata)

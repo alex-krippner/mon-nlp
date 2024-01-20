@@ -1,27 +1,31 @@
-import grpc
-from concurrent import futures
-import monNlpService_pb2_grpc
-import monNlpService_pb2
-from mon_nlp import MonNlpService
-import logging
-from grpc_reflection.v1alpha import reflection
+import adapters.genproto.monNlpService_pb2
+import adapters.genproto.monNlpService_pb2_grpc
+from adapters.mon_nlp_service import MonNlpService
+from adapters.spacy_text_analysis import SpacyTextAnalysis
+from domain.text_analysis import TextAnalyzer
+from server.server import Server
 
-def serve():
-  server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
-  monNlpService_pb2_grpc.add_MonNlpServiceServicer_to_server(
-     MonNlpService(), server)
 
-  # Enable gRPC reflection
-  SERVICE_NAMES = (
-  monNlpService_pb2.DESCRIPTOR.services_by_name['MonNlpService'].full_name,
-      # Add more service names if needed
-  )
-  reflection.enable_server_reflection(SERVICE_NAMES, server)     
-  server.add_insecure_port('[::]:50051')
-  logging.info("Starting server")
-  server.start()
-  server.wait_for_termination()
+class App:
+    """A class responsible for preparing the application for start up"""
 
-if __name__ == '__main__':
-    logging.basicConfig(level=logging.INFO)
-    serve()
+    def __init__(self) -> None:
+        self.nlp_processor = SpacyTextAnalysis()
+        self.text_analyzer = TextAnalyzer(self.nlp_processor)
+
+    def __prepare_server(self):
+        services = [
+            {
+                "name": "MonNlpService",
+                "pb": adapters.genproto.monNlpService_pb2,
+                "pb_grpc": adapters.genproto.monNlpService_pb2_grpc,
+                "implementation": MonNlpService(self.text_analyzer),
+            }
+        ]
+
+        server = Server(services)
+        return server
+
+    def start(self):
+        server = self.__prepare_server()
+        server.start()
