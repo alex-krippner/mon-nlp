@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package monNlp;
+
+message TokenizeRequest {
+    string text = 1;
+}
+
+message TokenizeResponse {
+    repeated string tokens = 1;
+}
+
+service MonNlpService {
+    rpc tokenize(TokenizeRequest) returns (TokenizeResponse);
+}
