@@ -14,7 +14,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%adapters/genproto/monNlpService.proto\x12\x06monNlp\"\x1f\n\x0fTokenizeRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"\"\n\x10TokenizeResponse\x12\x0e\n\x06tokens\x18\x01 \x03(\t2N\n\rMonNlpService\x12=\n\x08tokenize\x12\x17.monNlp.TokenizeRequest\x1a\x18.monNlp.TokenizeResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n%adapters/genproto/monNlpService.proto\x12\x06monNlp\"\x1f\n\x0fTokenizeRequest\x12\x0c\n\x04text\x18\x01 \x01(\t\"1\n\x10TokenizeResponse\x12\x1d\n\x06tokens\x18\x01 \x03(\x0b\x32\r.monNlp.Token\"\xbe\x01\n\x05Token\x12\x0c\n\x04text\x18\x01 \x01(\t\x12\r\n\x05orth_\x18\x02 \x01(\t\x12\x0e\n\x06lemma_\x18\x03 \x01(\t\x12\r\n\x05norm_\x18\x04 \x01(\t\x12\x0e\n\x06lower_\x18\x05 \x01(\t\x12\x0e\n\x06shape_\x18\x06 \x01(\t\x12\x0f\n\x07prefix_\x18\x07 \x01(\t\x12\x0f\n\x07suffix_\x18\x08 \x01(\t\x12\x0c\n\x04pos_\x18\t \x01(\t\x12\x0c\n\x04tag_\x18\n \x01(\t\x12\x0c\n\x04\x64\x65p_\x18\x0b \x01(\t\x12\r\n\x05lang_\x18\x0c \x01(\t2N\n\rMonNlpService\x12=\n\x08tokenize\x12\x17.monNlp.TokenizeRequest\x1a\x18.monNlp.TokenizeResponseb\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -24,7 +24,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _globals['_TOKENIZEREQUEST']._serialized_start=49
   _globals['_TOKENIZEREQUEST']._serialized_end=80
   _globals['_TOKENIZERESPONSE']._serialized_start=82
-  _globals['_TOKENIZERESPONSE']._serialized_end=116
-  _globals['_MONNLPSERVICE']._serialized_start=118
-  _globals['_MONNLPSERVICE']._serialized_end=196
+  _globals['_TOKENIZERESPONSE']._serialized_end=131
+  _globals['_TOKEN']._serialized_start=134
+  _globals['_TOKEN']._serialized_end=324
+  _globals['_MONNLPSERVICE']._serialized_start=326
+  _globals['_MONNLPSERVICE']._serialized_end=404
 # @@protoc_insertion_point(module_scope)

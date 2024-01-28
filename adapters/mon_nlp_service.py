@@ -8,9 +8,6 @@ class MonNlpService(adapters.genproto.monNlpService_pb2_grpc.MonNlpServiceServic
         self.text_analyzer = text_analyzer
 
     def tokenize(self, request, context):
-        entities = self.text_analyzer.analyze_text(request.text)
-        tokens = []
-        for entity in entities:
-            tokens.append(entity["text"])
+        tokens = self.text_analyzer.analyze_text(request.text)
         response = adapters.genproto.monNlpService_pb2.TokenizeResponse(tokens=tokens)
         return response
